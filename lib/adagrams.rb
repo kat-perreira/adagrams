@@ -44,7 +44,70 @@ def making_tiles (array_of_hashes)
 
 end
 
-
 test = making_tiles(BANANA_BAG)
 BIG_BAG = test.flatten
-puts "#{BIG_BAG}"
+
+
+def draw_letters
+  hand = BIG_BAG.shuffle[0..9]
+  return hand
+end
+
+drawn_hand = draw_letters
+puts "You have drawn these letters: #{drawn_hand}"
+puts
+
+# puts "#{BIG_BAG}"
+print "What word would you like to make with those letters? "
+word = gets.chomp.to_s.upcase.chars
+
+#puts "#{word}"
+reverse_word = word.reverse
+#puts "#{reverse_word}"
+
+
+#does last letter of the word match a tile from the bag
+# reverse_word.each_with_index do |index|
+#   if drawn_hand.include?(reverse_word.last)
+#     puts "yay!"
+#     drawn_hand.delete(word[-1])
+#     word.pop
+#   else
+#     puts "sorry no match"
+#     # exit
+#   end
+# end
+#
+#   puts "#{word}"
+#   puts "#{drawn_hand}"
+
+
+#does last letter of the word match a tile from the bag
+def uses_available_letters? (input, letters_in_hand)
+  user_correct = true
+  input.each_with_index do |index|
+    if letters_in_hand.include?(input.last)
+      letters_in_hand.delete(input[0])
+      origional_word = input.reverse
+      origional_word.pop
+      user_correct = true
+    else
+      user_correct = false
+      # exit
+    end
+  end
+return user_correct
+end
+
+# if user_correct
+#   return true
+# else
+#   return false
+
+test = uses_available_letters?(reverse_word, drawn_hand)
+puts test
+
+
+# puts "#{word}"
+# puts "#{drawn_hand}"
+# puts user_correct
