@@ -113,4 +113,42 @@ def score_word(word)
 end
 
 
-test_score = score_word(word)
+# test_score = score_word(word)
+
+# Wave 4
+
+def highest_score_from (words)
+  highest_scores = []
+  scores = []
+
+  words.each do |word|
+    # calling method above (called score_hash) to create a hash with the particular word and score of each word in the array
+    score_hash = {
+      words: word,
+      scores: score_word(word)
+    }
+  # shovelling the hashes above into the highest_scores array
+  highest_scores << score_hash
+  # shoveeling the return of the score_word method above (which is the score) for each of the words in the array
+  scores << score_word(word)
+  end
+
+  # sorts the scores from the scores array above and then makes the changes "permanent" with the ! so we can use it in the below iterations.
+  sorted_scores = scores.sort!
+  winner_hash = {}
+  # Iterating our way through the above array of hashes
+  highest_scores.each do |hash|
+    # Iterating through each of those hashes.  if the value of the score is equal to the highest member of the sorted_scores array (the largest), the word will then be shovelled into the winner array.
+      if hash[:scores] == sorted_scores.last
+        winner_hash = {
+          word: hash[:words],
+          score: sorted_scores.last
+        }
+      end
+  end
+  # binding.pry
+  return winner_hash
+end
+
+# winner = highest_score_from(["dog", "cat", "batty"])
+# puts "#{winners}"
