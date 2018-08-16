@@ -127,28 +127,56 @@ def highest_score_from (words)
       words: word,
       scores: score_word(word)
     }
-  # shovelling the hashes above into the highest_scores array
-  highest_scores << score_hash
-  # shoveeling the return of the score_word method above (which is the score) for each of the words in the array
-  scores << score_word(word)
+    # shovelling the hashes above into the highest_scores array
+    highest_scores << score_hash
+    # shoveeling the return of the score_word method above (which is the score) for each of the words in the array
+    scores << score_word(word)
   end
 
   # sorts the scores from the scores array above and then makes the changes "permanent" with the ! so we can use it in the below iterations.
   sorted_scores = scores.sort!
+  winners_room = []
   winner_hash = {}
   # Iterating our way through the above array of hashes
   highest_scores.each do |hash|
     # Iterating through each of those hashes.  if the value of the score is equal to the highest member of the sorted_scores array (the largest), the word will then be shovelled into the winner array.
-      if hash[:scores] == sorted_scores.last
-        winner_hash = {
-          word: hash[:words],
-          score: sorted_scores.last
-        }
+
+    if hash[:scores] == sorted_scores.last
+      # putting all the winners with highest score to wait
+      winners_room << hash[:words]
+
+    end
+    shortest_word = 11
+    # going thru each player in the winners room to meet top winner
+    actual_winner = []
+    # actual_actual_winner = ""
+    actual_actual_winner = []
+    winners_room.each do |winner|
+      if winner.length == 10
+        actual_winner << winner
+
+
+      elsif winner.length <= shortest_word
+        shortest_word = winner.length
+        actual_winner << winner
+
       end
+      # actual_actual_winner = []
+      actual_actual_winner << actual_winner[0]
+    end
+    # actual_actual_winner = ''
+    #   actual_actual_winner = actual_winner.first
+    #itterate thru the winner array to account for tie stuff
+    # binding.pry
+    winner_hash = {
+      word: actual_actual_winner[0],
+      score: sorted_scores.last
+    }
   end
-  # binding.pry
   return winner_hash
 end
+# binding.pry
 
-# winner = highest_score_from(["dog", "cat", "batty"])
-# puts "#{winners}"
+
+# winner = highest_score_from(["dog", "cat", "battonsuens"])
+# puts "#{winner}"
