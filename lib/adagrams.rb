@@ -93,7 +93,6 @@ POINTS = [
   {"Z" => 10}
 ]
 
-
 def score_word(word)
   word_arr = word.upcase.chars
   score = 0
@@ -106,9 +105,12 @@ def score_word(word)
       end
     end
   end
-    return score
+  # adds 8 points if the word guess is greater or equal to 7 digits
+  if word.length >= 7
+    score = score + 8
+  end
+  return score
 end
 
 
 test_score = score_word(word)
-puts "#{test_score}"
